@@ -1,2 +1,2 @@
-.yarn-error
-.yarn
+yarn-error.log*
+yarn.lock*
