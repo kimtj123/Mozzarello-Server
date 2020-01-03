@@ -1,0 +1,12 @@
+{
+  "name": "mozzarello-server",
+  "version": "0.0.1",
+  "description": "모짜렐로 서버",
+  "main": "index.js",
+  "repository": "https://github.com/kimtj123/Mozzarello-server.git",
+  "author": "김태중",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.11.0"
+  }
+}
