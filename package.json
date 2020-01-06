@@ -7,6 +7,15 @@
   "author": "김태중",
   "license": "MIT",
   "dependencies": {
-    "koa": "^2.11.0"
+    "dotenv": "^8.2.0",
+    "joi": "^14.3.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.8.4"
+  },
+  "scripts": {
+    "start": "cross-env NODE_PATH=src node src",
+    "start:dev": "cross-env NODE_PATH=src nodemon --watch src/ src/index.js"
   }
 }
