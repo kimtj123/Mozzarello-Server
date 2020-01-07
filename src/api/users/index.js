@@ -6,6 +6,7 @@ const userCtrl = require('./users.controller');
 
 
 users.get('/', userCtrl.list);
+users.get('/:id', userCtrl.get);
 users.post('/', userCtrl.create);
 users.delete('/', userCtrl.delete);
 users.put('/', userCtrl.replace);
