@@ -3,7 +3,7 @@ const Joi = require('joi');
 const { decodeToken } = require('../token/token');
 
 exports.makeBoard = async (ctx) => {
-
+    
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         title: Joi.string(),
@@ -55,15 +55,18 @@ exports.findBoards = async (ctx) => {
 }
 
 exports.deleteBoard = async (ctx) => {
-    const { email, title } = ctx.params; // URL 파라미터에서 id 값을 읽어옵니다.
+    const { id } = ctx.params; // URL 파라미터에서 id 값을 읽어옵니다.
+
     try {
-        await Board.deleteOne({ email : email}, {title : title});
+        await Board.deleteOne({ _id : id });
     } catch (e) {
         if(e.name === 'CastError') {
             ctx.status = 400;
             return;
         }
     }
-            
+    ctx.body = { 
+        "delete" :  id
+    }
     ctx.status = 204; // No Content
 }

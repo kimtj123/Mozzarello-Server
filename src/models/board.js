@@ -27,12 +27,8 @@ Board.statics.makeBoard = function(ctx) {
     return board.save();
 }
 
-Board.statics.findBoards = function(email) {
-    return this.findOne({ email }).exec();
-}
-
-Board.statics.deleteBoard = function(ctx) {
-    const { id } = ctx.params;
-}
+// Board.statics.findBoards = function(email) {
+//     return this.findOne({ email }).exec();
+// }
 
 module.exports = mongoose.model('Board', Board);

@@ -171,8 +171,8 @@ exports.logout = async (ctx) => {
 exports.check = async (ctx) => {    
 
     const { user } = ctx.request;
-    console.log("check :: ", ctx.request)
-    console.log("check.user :: ", ctx.request.user)
+    // console.log("check :: ", ctx.request)
+    // console.log("check.user :: ", ctx.request.user)
     
     if(!user) {
         ctx.status = 403; // Forbidden
