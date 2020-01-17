@@ -1,6 +1,5 @@
 const Board = require('../models/board');
 const Joi = require('joi');
-const { decodeToken } = require('../token/token');
 
 exports.makeBoard = async (ctx) => {
     
@@ -58,7 +57,8 @@ exports.deleteBoard = async (ctx) => {
     const { id } = ctx.params; // URL 파라미터에서 id 값을 읽어옵니다.
 
     try {
-        await Board.deleteOne({ _id : id });
+        console.log(await Board.findOneAndDelete({ _id : id })); 
+        //deleteOne 삭제, findOneAndDelete 삭제 후 리턴
     } catch (e) {
         if(e.name === 'CastError') {
             ctx.status = 400;

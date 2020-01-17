@@ -3,10 +3,6 @@ const Board = require('../models/board');
 const Joi = require('joi');
 const { decodeToken } = require('../token/token');
 
-
-
-
-
 // 로컬 회원가입
 exports.localRegister = async (ctx) => {
     const schema = Joi.object().keys({
