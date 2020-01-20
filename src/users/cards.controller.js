@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Card = require('../models/card');
 const Joi = require('joi');
 
@@ -32,4 +33,71 @@ exports.makeCard = async (ctx) => {
     }    
     ctx.status = 201;
     ctx.body = request;     
+}
+
+exports.findCards = async (ctx) => {
+    let boardID = ctx.params.id        
+    let cards;
+    try {
+        // key 에 따라 findByEmail 혹은 findByUsername 을 실행합니다.
+        cards = await Card.find({boardID : boardID})     
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+    console.log("cards :: ",cards)
+    ctx.body = {
+        cards: cards
+    };
+}
+
+exports.deleteCard = async (ctx) => {
+    const { id } = ctx.params; // URL 파라미터에서 id 값을 읽어옵니다.
+
+    try {
+        console.log(await Card.findOneAndDelete({ _id : id })); 
+        //deleteOne 삭제, findOneAndDelete 삭제 후 리턴
+    } catch (e) {
+        if(e.name === 'CastError') {
+            ctx.status = 400;
+            return;
+        }
+    }
+    ctx.body = { 
+        "delete" :  id
+    }
+    ctx.status = 204; // No Content
+}
+
+exports.addList = async (ctx) => {
+    let lists;
+    let cardID = ctx.params.id
+    let newList = ctx.request.body;   
+    console.log("newList :: ", newList.id = new mongoose.Types.ObjectId())
+    try {
+        // key 에 따라 findByEmail 혹은 findByUsername 을 실행합니다.
+        lists = await Card.find({_id : cardID})            
+        lists[0].list.push(newList)                
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+
+    ctx.body = lists;
+    return lists[0].save();
+}
+
+exports.modifyTitle = async (ctx) => {
+    console.log("수정 요청 :: ", ctx.request.body)
+    let lists;
+    let cardID = ctx.params.id
+    let newTitle = ctx.request.body.title;   
+    try {
+        // key 에 따라 findByEmail 혹은 findByUsername 을 실행합니다.
+        lists = await Card.find({_id : cardID})            
+        console.log("lists.list :: ", lists[0].title = newTitle)
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+
+    ctx.body = lists;
+    return lists[0].save();
 }

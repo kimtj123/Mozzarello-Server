@@ -27,6 +27,7 @@ exports.makeBoard = async (ctx) => {
 
 
     let request = {
+        boardID : board._id,
         title : board.title,
         list : board.list,        
         color : board.color

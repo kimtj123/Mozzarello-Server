@@ -1,5 +1,4 @@
 const User = require('../models/users');
-const Board = require('../models/board');
 const Joi = require('joi');
 const { decodeToken } = require('../token/token');
 
