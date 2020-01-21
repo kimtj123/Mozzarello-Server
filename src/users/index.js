@@ -3,7 +3,6 @@ const users = new Router();
 const userCtrl = require('./users.controller');
 const boardsCtrl = require('./boards.controller');
 const cardCtrl = require('./cards.controller');
-const listCtrl = require('./lists.controller');
 
 
 // user 스키마 관련
@@ -29,5 +28,8 @@ users.patch('/boards/cards/title/:id', cardCtrl.modifyTitle) // 카드명 수정
  * 2. list 삭제
  */
 users.patch('/boards/cards/list/:id', cardCtrl.addList)
+users.put('/boards/cards/deletelist/:cardID/:listID', cardCtrl.deleteList)
+users.put('/boards/cards/changelist/:cardID/:listID', cardCtrl.changeList)
+
 
 module.exports = users;
