@@ -10,6 +10,8 @@ function hash(password){
   .digest('hex');
 }
 
+exports.hash = hash;
+
 // 스키마
 const User = new Schema({
     id: Number,
