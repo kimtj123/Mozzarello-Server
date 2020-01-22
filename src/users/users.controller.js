@@ -1,5 +1,6 @@
 const User = require('../models/users');
 const Joi = require('joi');
+const crypto = require('crypto');
 const { decodeToken } = require('../token/token');
 
 // 로컬 회원가입
@@ -176,3 +177,41 @@ exports.check = async (ctx) => {
     
     ctx.body = user;
 };
+
+// 회원정보 변경
+
+function hash(password){
+    return crypto.createHmac('sha256', process.env.SECRET_KEY)
+    .update(password)
+    .digest('hex');
+  }
+
+exports.myinfo = async (ctx) => {
+    const { email } = ctx.params; 
+    const { oldpwd, newpwd } = ctx.request.body; 
+    let info;
+    console.log("oldpwd :: ", oldpwd, "newpwd :: ", newpwd)    
+
+    try{
+        info = await User.findByEmail(email)
+
+        if(info.password !== hash(oldpwd))
+        {
+            ctx.status = 404;
+            ctx.body = ["틀린 비밀번호입니다."]
+            return;
+        }
+
+        info = await User.findOneAndUpdate({"email" : email}, 
+        {"password" : hash(newpwd)},
+        {new : true}
+        )
+
+    } catch(e) {
+        return ctx.throw(500, e);
+    }
+    console.log(info)
+    ctx.status = 200;
+    ctx.body = ["비밀번호가 변경되었습니다."]
+}
+
